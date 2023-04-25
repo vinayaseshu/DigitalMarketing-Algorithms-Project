@@ -17,7 +17,7 @@ print('Preparing Data for transformation......')
 #Read Data
 orders = pd.read_csv("https://raw.githubusercontent.com/ashwinkadam/DigitalMarketing-Algorithms-Project/main/Data/order_items.csv")
 products = pd.read_csv("https://raw.githubusercontent.com/ashwinkadam/DigitalMarketing-Algorithms-Project/main/Data/products.csv")
-users = pd.read_csv("https://raw.githubusercontent.com/ashwinkadam/DigitalMarketing-Algorithms-Project/main/Prodcut_recom/users.csv")
+users = pd.read_csv("https://raw.githubusercontent.com/ashwinkadam/DigitalMarketing-Algorithms-Project/main/Product_recom/users.csv")
 
 
 #Product Data formatting
