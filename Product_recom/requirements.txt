@@ -1,0 +1,7 @@
+pandas
+numpy
+requests
+io
+pinecone-client
+streamlit
+sklearn
