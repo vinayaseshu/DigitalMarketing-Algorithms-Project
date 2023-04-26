@@ -3,4 +3,4 @@ numpy
 requests
 pinecone-client
 streamlit
-sklearn
+scikit-learn
