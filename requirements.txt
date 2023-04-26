@@ -1,0 +1,11 @@
+Pandas
+numpy
+datetime
+openai
+pinecone-client
+PyAutoGUI
+snowflake-snowpark-python
+ipykernel
+pyarrow==10.0.1
+snowflake.sqlalchemy
+plotly

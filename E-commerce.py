@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import json
-import snowflake.snowpark
 from snowflake.snowpark import functions as F
 from snowflake.snowpark import version as v
 from snowflake.snowpark.session import Session
@@ -31,7 +29,7 @@ def connect():
         account= st.secrets['snowflake_acc'],
         warehouse= st.secrets['snowflake_warehouse'],
         database = st.secrets['snowflake_database'],
-        schema=st.secrets['snowflake_schema']'
+        schema=st.secrets['snowflake_schema']
     )
 
     session = Session.builder.configs(CONNECTION_PARAMETERS).create()
