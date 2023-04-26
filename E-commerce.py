@@ -15,42 +15,34 @@ import datetime
 #Setting up connection with database
 @st.cache_resource
 def connect():
-    with open('creds.json') as f:
-        data = json.load(f)
-        USERNAME = data['user']
-        PASSWORD = data['password']
-        SF_ACCOUNT = data['account']
-        SF_WH = data['warehouse']
-        Database = data['database']
-        Schema = data['schema']
-
+    
     CONNECTION_PARAMETERS = {
-    "account": SF_ACCOUNT,
-    "user": USERNAME,
-    "password": PASSWORD,
-        "database": Database,
-        "schema": Schema
+    "account": st.secrets['snowflake_acc'],
+    "user": st.secrets['snowflake_user'],
+    "password": st.secrets['snowflake_pass'],
+        "database": st.secrets['snowflake_database'],
+        "schema": st.secrets['snowflake_schema']
         
     }
 
-    conn = sf.connect(
-        user= USERNAME,
-        password= PASSWORD,
-        account= SF_ACCOUNT,
-        warehouse= SF_WH,
-        database = 'Forecasting',
-        schema='Demandforecasting'
+    conn = sf.connect (
+        user= st.secrets['snowflake_user'],
+        password= st.secrets['snowflake_pass'],
+        account= st.secrets['snowflake_acc'],
+        warehouse= st.secrets['snowflake_warehouse'],
+        database = st.secrets['snowflake_database'],
+        schema=st.secrets['snowflake_schema']'
     )
 
     session = Session.builder.configs(CONNECTION_PARAMETERS).create()
 
     engine = create_engine(URL(
-        account = SF_ACCOUNT,
-        user = USERNAME,
-        password = PASSWORD,
-        database = Database,
-        schema = Schema,
-        warehouse = SF_WH,
+        account = st.secrets['snowflake_acc'],
+        user = st.secrets['snowflake_user'],
+        password = st.secrets['snowflake_pass'],
+        database = st.secrets['snowflake_database'],
+        schema = st.secrets['snowflake_schema'],
+        warehouse = st.secrets['snowflake_warehouse'],
         role='ACCOUNTADMIN',
     ))
     
