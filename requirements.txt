@@ -1,4 +1,4 @@
-Pandas
+pandas==1.*
 numpy
 datetime
 openai
