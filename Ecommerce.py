@@ -73,9 +73,7 @@ def plot_hist(session, dist, prod, refresh=False):
     fig.update_layout(
     xaxis_title="Date",
     yaxis_title="Sales Quantity",
-    font=dict(family="Arial", size=12, color="#7f7f7f"),
-    plot_bgcolor="#ffffff",
-    paper_bgcolor="#ffffff")
+    font=dict(family="Arial", size=12, color="#7f7f7f"))
 
 
     # Display the graph on Streamlit
