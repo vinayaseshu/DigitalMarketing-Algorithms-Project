@@ -9,3 +9,4 @@ ipykernel
 pyarrow==10.0.1
 snowflake.sqlalchemy
 plotly
+charset-normalizer==2.*
