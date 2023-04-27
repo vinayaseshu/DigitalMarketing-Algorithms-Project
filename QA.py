@@ -79,7 +79,7 @@ st.title('Knowledge base for questions & answers')
 
 st.header('Looking for specific info?')
 
-st.markdown('Try out our new Chat with reviewers feature where you can ask questions related to your product to our product reviewers/customers and hear it out directly from them')
+st.markdown('Are you tired of sifting through countless reviews trying to find the information you need about a product? Look no further than our new Chat with Reviewers feature! Get direct access to product reviewers and customers who have used the product you\'re interested in. Ask them questions, get their honest opinions, and make an informed decision about your purchase. Say goodbye to uncertainty and hello to confidence in your buying decisions with Chat with Reviewers.')
 
 query = st.text_input(label='Question ?', key='query',value='Welcome customers')
 
