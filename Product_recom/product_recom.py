@@ -5,6 +5,8 @@ import io
 import pinecone
 import streamlit as st
 from sklearn.preprocessing import LabelEncoder
+from sentence_transformers import SentenceTransformer
+import torch
 
 @st.cache_data
 def get_data():
@@ -76,7 +78,7 @@ def pinecone_1(api,env):
     index_1 = pinecone.Index(index_name=index_name)
     return index_1
 
-
+@st.cache_resource
 def pinecone_2(api,env):
     # Initialize Pinecone and load data
     pinecone.init(api_key=api, environment=env)
@@ -85,7 +87,7 @@ def pinecone_2(api,env):
     index_2 = pinecone.Index(index_name=index_name)
     return index_2
 
-
+@st.cache_resource
 def pinecone_3(api,env):
     # Initialize Pinecone and load data
     pinecone.init(api_key=api, environment=env)
@@ -93,6 +95,14 @@ def pinecone_3(api,env):
     index_name = 'age-products'
     index_3 = pinecone.Index(index_name=index_name)
     return index_3
+
+@st.cache_resource
+def connect_pine_asso(api,env):
+    pinecone.init(api_key= api, environment= env)
+    index_name = 'products-sim'
+    index_asso = pinecone.Index(index_name=index_name)
+    return index_asso
+
 
 ##################################### HELPER FUNCTION ###################################################
 
@@ -227,61 +237,109 @@ def get_recommendations_Model_3(user_id, item_factors, city_to_index,index):
         return df_age
     else:
         return None, None
-    
+   
+##################################### MODEL 4 : Association Model ###################################################
 
-##################################### MAIN #################################################################
+def get_asso_model():
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    if device != 'cuda':
+        print(f"You are using {device}. This is much slower than using "
+            "a CUDA-enabled GPU. If on Colab you can change this by "
+            "clicking Runtime > Change runtime type > GPU.")
+        
+    model = SentenceTransformer('all-MiniLM-L6-v2', device=device)
 
-#api_1 = '863bc7fa-db48-4cc1-9fbe-050e92ee681e'
-#env_1 = 'us-west4-gcp'
-api_1 = st.secrets['api_1']
-env_1 = st.secrets['env_1']
-index_1 = pinecone_1(api_1,env_1)
-
-# api_2 = '32ae2c93-dc47-4452-b6d1-51329bb62822'
-# env_2 = 'northamerica-northeast1-gcp'
-api_2 = st.secrets['api_2']
-env_2 = st.secrets['env_2']
-index_2 = pinecone_2(api_2,env_2)
-
-# api_3 = '2e8bb60b-fe4e-4b5a-b4ff-c4dc103edd39'
-# env_3 = 'asia-northeast1-gcp'
-api_3 = st.secrets['api_3']
-env_3 = st.secrets['env_3']
-index_3 = pinecone_3(api_3,env_3)
-
-item_factors_m1, item_factors_m2, item_factors_m3 = get_factors()
-
-user_to_index , city_to_index , age_to_index = get_index()
+    return model
 
 
-# Streamlit app code
-st.title("Product Recommendation 👔 👖 🧥")
-# Get user input
-user_id = int(st.text_input("Enter user ID:", value=5))
+##################################################################################################################
 
-if check_user(user_id):
-    #Model 1
-    df, top_buys_df = get_recommendations_Model_1(user_id, item_factors_m1, user_to_index,index_1)
-    is_empty = df.empty
-    if is_empty:
-         st.subheader('User has less Interaction - No Product Recommendation for now 👋')
+tab1, tab2 = st.tabs(["Product Page : Associated Products", "Checkout Page : Product Recommendation"])
+
+with tab1:
+    data , products, city_item = get_data()
+    # # Get unique values from a column in the DataFrame
+    options = products["name"].unique()
+
+
+    # Define Streamlit app
+    st.title("Associated Products 🛒")
+
+    # Display the selectbox widget
+
+    product = st.selectbox("Selected Product",options= options)
+
+    model = get_asso_model()
+
+    # api= '5d4c8961-5aaa-4aa5-a104-50561a86de58'
+    # env='eu-west1-gcp'
+
+    api_asso = st.secrets['api_asso']
+    env_asso = st.secrets['env_asso']
+    index = connect_pine_asso(api_asso,env_asso)
+
+    # create the query vector
+    vector = model.encode(product).tolist()
+    # now query
+    xc = index.query(vector, top_k=10, include_metadata=True)
+
+    df = pd.DataFrame({'Product': [result['id'] for result in xc['matches']],'score': [round(result['score'], 2) for result in xc['matches']]})
+    df = df[df['score'] != 1]
+    st.subheader("Similar Products ✅")
+    st.write(df)
+
+with tab2:
+    #api_1 = '863bc7fa-db48-4cc1-9fbe-050e92ee681e'
+    #env_1 = 'us-west4-gcp'
+    api_1 = st.secrets['api_1']
+    env_1 = st.secrets['env_1']
+    index_1 = pinecone_1(api_1,env_1)
+
+    # api_2 = '32ae2c93-dc47-4452-b6d1-51329bb62822'
+    # env_2 = 'northamerica-northeast1-gcp'
+    api_2 = st.secrets['api_2']
+    env_2 = st.secrets['env_2']
+    index_2 = pinecone_2(api_2,env_2)
+
+    # api_3 = '2e8bb60b-fe4e-4b5a-b4ff-c4dc103edd39'
+    # env_3 = 'asia-northeast1-gcp'
+    api_3 = st.secrets['api_3']
+    env_3 = st.secrets['env_3']
+    index_3 = pinecone_3(api_3,env_3)
+
+    item_factors_m1, item_factors_m2, item_factors_m3 = get_factors()
+    user_to_index , city_to_index , age_to_index = get_index()
+
+    # Streamlit app code
+    st.title("Product Recommendation 👔 👖 🧥")
+    # Get user input
+    user_id = int(st.text_input("Enter user ID:", value=5))
+
+    if check_user(user_id):
+        #Model 1
+        df, top_buys_df = get_recommendations_Model_1(user_id, item_factors_m1, user_to_index,index_1)
+        is_empty = df.empty
+        if is_empty:
+            st.subheader('User has less Interaction - No Product Recommendation for now 👋')
+        else:
+            st.subheader("Recommendations based on User Interactions 👥:")
+            st.write(df)
+
+        #Model 2
+        df_city = get_recommendations_Model_2(user_id,item_factors_m2,city_to_index,index_2)
+        st.subheader("Recommendations based on Region 🌎")
+        st.write(df_city)
+
+        #Model 3
+        df_age = get_recommendations_Model_3(user_id,item_factors_m3, age_to_index,index_3)
+        st.subheader("Recommendations based on Age 🤝")
+        st.write(df_age)
+
+        #Past buy's
+        st.subheader("Top buys from the past 🔁")
+        st.write(top_buys_df)
     else:
-        st.subheader("Recommendations based on User Interactions 👥:")
-        st.write(df)
+        st.subheader("Invalid User, User does not Exists ❌")
 
-    #Model 2
-    df_city = get_recommendations_Model_2(user_id,item_factors_m2,city_to_index,index_2)
-    st.subheader("Recommendations based on Region 🌎")
-    st.write(df_city)
 
-    #Model 3
-    df_age = get_recommendations_Model_3(user_id,item_factors_m3, age_to_index,index_3)
-    st.subheader("Recommendations based on Age 🤝")
-    st.write(df_age)
-
-    #Past buy's
-    st.subheader("Top buys from the past 🔁")
-    st.write(top_buys_df)
-else:
-    st.subheader("Invalid User, User does not Exists ❌")
 
