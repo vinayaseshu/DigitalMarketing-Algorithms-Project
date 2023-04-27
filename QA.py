@@ -48,7 +48,7 @@ def prompt_setup():
     ###################################################
     prompt_template2 = """Here is a statement:
             {statement}
-            Make the statement sound like it is coming from a customer care representative at Uniqlo clothing company also tell them to leave us a review if this response helped them .\n\n"""
+            Make the statement sound genuine also tell them to leave us a review if this response helped them .\n\n"""
     second_prompt = PromptTemplate(input_variables=["statement"], template=prompt_template2)
     ###################################################
 
