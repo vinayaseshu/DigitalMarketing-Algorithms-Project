@@ -13,3 +13,7 @@ charset-normalizer==2.*
 langchain
 chromadb
 tiktoken
+requests
+sentence-transformers
+torch
+scikit-learn
