@@ -12,3 +12,4 @@ plotly
 charset-normalizer==2.*
 langchain
 chromadb
+tiktoken
