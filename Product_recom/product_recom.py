@@ -255,7 +255,7 @@ user_to_index , city_to_index , age_to_index = get_index()
 
 
 # Streamlit app code
-st.title("Product Recommendation 👔 👖 🧥 👗 🧢")
+st.title("Product Recommendation 👔 👖 🧥")
 # Get user input
 user_id = int(st.text_input("Enter user ID:", value=5))
 
