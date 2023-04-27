@@ -124,7 +124,14 @@ def create_lookup_city_df():
     lookup_city = lookup_city[['city_x', 'city_y']].copy()
     return lookup_city
 
-
+def check_user(user_id):
+    data = pd.read_csv('https://raw.githubusercontent.com/ashwinkadam/DigitalMarketing-Algorithms-Project/main/Product_recom/Data_Prep/master_data.csv')
+    if user_id in [data[data['user_id'] == user_id]['user_id']]:
+        flag = True
+    else:
+        falg = False
+     
+    return flag
 ##################################### MODEL 1 : USER_ITEM ###################################################
 
 
@@ -253,27 +260,29 @@ st.title("Product Recommendation")
 # Get user input
 user_id = int(st.text_input("Enter user ID:", value=5))
 
+if check_user:
+    #Model 1
+    df, top_buys_df = get_recommendations_Model_1(user_id, item_factors_m1, user_to_index,index_1)
+    is_empty = df.empty
+    if is_empty:
+         st.subheader('User has less Interaction - No Product Recommendation for now based on User Interaction')
+    else:
+        st.subheader("Recommendations based on User Interaction:")
+        st.write(df)
 
-#Model 1
-df, top_buys_df = get_recommendations_Model_1(user_id, item_factors_m1, user_to_index,index_1)
-is_empty = df.empty
-if is_empty:
-     st.subheader('User has less Interaction - No Product Recommendation for now based on User Interaction')
+    #Model 2
+    df_city = get_recommendations_Model_2(user_id,item_factors_m2,city_to_index,index_2)
+    st.subheader("Recommendations based on Region:")
+    st.write(df_city)
+
+    #Model 3
+    df_age = get_recommendations_Model_3(user_id,item_factors_m3, age_to_index,index_3)
+    st.subheader("Recommendations based Age:")
+    st.write(df_age)
+
+    #Past buy's
+    st.subheader("Top buys from the past:")
+    st.write(top_buys_df)
 else:
-    st.subheader("Recommendations based on User Interaction:")
-    st.write(df)
-
-#Model 2
-df_city = get_recommendations_Model_2(user_id,item_factors_m2,city_to_index,index_2)
-st.subheader("Recommendations based on Region:")
-st.write(df_city)
-
-#Model 3
-df_age = get_recommendations_Model_3(user_id,item_factors_m3, age_to_index,index_3)
-st.subheader("Recommendations based Age:")
-st.write(df_age)
-
-#Past buy's
-st.subheader("Top buys from the past:")
-st.write(top_buys_df)
+    print("Invalid User")
 
