@@ -259,7 +259,7 @@ tab1, tab2 = st.tabs(["Product Page : Associated Products", "Checkout Page : Pro
 with tab1:
     data , products, city_item = get_data()
     # # Get unique values from a column in the DataFrame
-    options = products["name"].unique()
+    options = products["product_name"].unique()
 
 
     # Define Streamlit app
