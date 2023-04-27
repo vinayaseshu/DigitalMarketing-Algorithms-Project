@@ -137,15 +137,15 @@ def plot_pred(dist, df):
 conn, session, engine = connect()
 
 
-st.title("Stock Forecasting for Ecommerce Company")
+st.title("Stock Forecasting for Ecommerce Company 🛍️🛒📈")
 st.header('Historical trend of stock')
-st.sidebar.success('Navigation')
+st.sidebar.success()
 
 
 
 refresh = st.button("refresh", key='refresh', help='Refresh will load the model with latest data from snowflake and train the model on the new data')
-dist = int(st.selectbox('Select Distribution Center',[1,2,3,4,5,6,7,8,9,10],0 ))
-prod = int(st.selectbox('Select Product category', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],0))
+dist = int(st.selectbox('Select Distribution Center 🏭',[1,2,3,4,5,6,7,8,9,10],0 ))
+prod = int(st.selectbox('Select Product category 👔👖👗', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],0))
    
 if refresh:
     plot_hist(session=session, dist= dist, prod= prod, refresh=True)
@@ -155,12 +155,12 @@ plot = st.button('Plot', key='plot', help='This will plot the historical product
 if plot:
     plot_hist(session=session, dist= dist, prod= prod, refresh=False)
 
-st.header('Forecasting for Future stocks')
+st.header('Forecasting for Future stocks 🔮')
 st.markdown('Select next month as per current date for more accuracy. Accuracy decreases as you try to forecast more in future.')
 
-user_year = int(st.number_input('Enter Year', max_value=2024, step=1, min_value=2023, value=datetime.datetime.now().year))
-user_month = int(st.number_input('Enter Month', max_value=12, step=1, min_value=1, value=datetime.datetime.now().month + 1))
-dist_pred = int(st.selectbox('Select Distribution Center',[1,2,3,4,5,6,7,8,9,10],0, key='pred_select' ))
+user_year = int(st.number_input('Enter Year 📅', max_value=2024, step=1, min_value=2023, value=datetime.datetime.now().year))
+user_month = int(st.number_input('Enter Month 🔢', max_value=12, step=1, min_value=1, value=datetime.datetime.now().month + 1))
+dist_pred = int(st.selectbox('Select Distribution Center 🏭',[1,2,3,4,5,6,7,8,9,10],0, key='pred_select' ))
 
 run = st.button('Run', key='run')
 

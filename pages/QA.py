@@ -75,9 +75,9 @@ def answer_query(query,overall_chain):
 vectordb, llm = setup()
 overall_chain = prompt_setup()
 
-st.title('Knowledge base for questions & answers')
+st.title('Knowledge base for questions & answers 📚📑🔖')
 
-st.header('Looking for specific info?')
+st.header('Looking for specific info? 🔎')
 
 st.markdown('Are you tired of sifting through countless reviews trying to find the information you need about a product? Look no further than our new Chat with Reviewers feature! Get direct access to product reviewers and customers who have used the product you\'re interested in. Ask them questions, get their honest opinions, and make an informed decision about your purchase. Say goodbye to uncertainty and hello to confidence in your buying decisions with Chat with Reviewers.')
 
