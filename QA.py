@@ -34,7 +34,7 @@ def setup():
 @st.cache_resource
 def prompt_setup():
     #################################################
-    prompt_template1 = """ Prompt: Use the following pieces of context to answer the question at the end and Answer as if your a salesman of the company
+    prompt_template1 = """ Prompt: Use the following pieces of context to answer the question
 
     {context}
 
@@ -48,7 +48,7 @@ def prompt_setup():
     ###################################################
     prompt_template2 = """Here is a statement:
             {statement}
-            Make the statement sound like it is coming from a customer care representative at ABC clothing company.\n\n"""
+            Make the statement sound like it is coming from a customer care representative at NEU clothing company also tell them to leave us a review if this response helped them .\n\n"""
     second_prompt = PromptTemplate(input_variables=["statement"], template=prompt_template2)
     ###################################################
 
@@ -81,8 +81,11 @@ st.header('Looking for specific info?')
 
 st.markdown('Try out our new Chat with reviewers feature where you can ask questions related to your product to our product reviewers/customers and hear it out directly from them')
 
-query = st.text_input(label='Question ?', key='query')
+query = st.text_input(label='Question ?', key='query',value='Welcome customers')
 
-response = answer_query(query,overall_chain)
+ask = st.button(label='Ask', key='run')
 
-st.markdown(response)
+if ask: 
+    response = answer_query(query,overall_chain)
+
+    st.markdown(response)
