@@ -31,7 +31,7 @@ def setup():
 
     return vectordb,llm 
 
-@st.cache_resource
+
 def prompt_setup():
     #################################################
     prompt_template1 = """ Prompt: Use the following pieces of context to answer the question at the end and Answer as if your a salesman of the company
