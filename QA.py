@@ -31,7 +31,7 @@ def setup():
 
     return vectordb,llm 
 
-
+@st.cache_resource
 def prompt_setup():
     #################################################
     prompt_template1 = """ Prompt: Use the following pieces of context to answer the question at the end and Answer as if your a salesman of the company
@@ -64,7 +64,7 @@ def prompt_setup():
     
     return overall_chain
 
-@st.cache_data
+
 def answer_query(query,overall_chain):
     docsearch = vectordb.similarity_search(query, k=8)
 
