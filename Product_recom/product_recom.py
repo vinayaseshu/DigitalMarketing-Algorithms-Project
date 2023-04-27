@@ -283,5 +283,5 @@ if check_user(user_id):
     st.subheader("Top buys from the past:")
     st.write(top_buys_df)
 else:
-    print("Invalid User")
+    st.subheader("Invalid User:")
 
