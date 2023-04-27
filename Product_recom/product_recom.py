@@ -227,20 +227,20 @@ def get_recommendations_Model_3(user_id, item_factors, city_to_index,index):
 
 #api_1 = '863bc7fa-db48-4cc1-9fbe-050e92ee681e'
 #env_1 = 'us-west4-gcp'
-api_1 = st.secrets('api_1')
-env_1 = st.secrets('env_1')
+api_1 = st.secrets['api_1']
+env_1 = st.secrets['env_1']
 index_1 = pinecone_1(api_1,env_1)
 
 # api_2 = '32ae2c93-dc47-4452-b6d1-51329bb62822'
 # env_2 = 'northamerica-northeast1-gcp'
-api_2 = st.secrets('api_2')
-env_2 = st.secrets('env_2')
+api_2 = st.secrets['api_2']
+env_2 = st.secrets['env_2']
 index_2 = pinecone_2(api_2,env_2)
 
 # api_3 = '2e8bb60b-fe4e-4b5a-b4ff-c4dc103edd39'
 # env_3 = 'asia-northeast1-gcp'
-api_3 = st.secrets('api_3')
-env_3 = st.secrets('env_3')
+api_3 = st.secrets['api_3']
+env_3 = st.secrets['env_3']
 index_3 = pinecone_3(api_3,env_3)
 
 item_factors_m1, item_factors_m2, item_factors_m3 = get_factors()
