@@ -276,7 +276,7 @@ if check_user(user_id):
 
     #Model 3
     df_age = get_recommendations_Model_3(user_id,item_factors_m3, age_to_index,index_3)
-    st.subheader("Recommendations on based Age 🤝")
+    st.subheader("Recommendations based on Age 🤝")
     st.write(df_age)
 
     #Past buy's
