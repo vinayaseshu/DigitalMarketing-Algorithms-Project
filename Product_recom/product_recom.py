@@ -260,7 +260,7 @@ st.title("Product Recommendation")
 # Get user input
 user_id = int(st.text_input("Enter user ID:", value=5))
 
-if check_user:
+if check_user(user_id):
     #Model 1
     df, top_buys_df = get_recommendations_Model_1(user_id, item_factors_m1, user_to_index,index_1)
     is_empty = df.empty
