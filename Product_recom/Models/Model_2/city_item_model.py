@@ -37,10 +37,10 @@ def convert_categorical_to_numerical(df):
     return df_new
 
 #city_item table
-city_item = convert_categorical_to_numerical(city_item)
+city_item_con = convert_categorical_to_numerical(city_item)
 
 #city code table
-lookup_city = pd.merge(city_item,city_item, left_index=True, right_index=True)
+lookup_city = pd.merge(city_item,city_item_con, left_index=True, right_index=True)
 lookup_city = lookup_city[['city_x', 'city_y']].copy()
 
 
