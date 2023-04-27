@@ -59,6 +59,7 @@ def plot_hist(session, dist, prod, refresh=False):
         with st.spinner('Training model with current data hold tight...'):
             query = "Call FORECASTXGBOOST_SPROC();"
             session.sql(f"{query}").collect()
+        st.snow()
         st.success('Model trained successfully', icon="✅")
            
     hist_df = get_data()
