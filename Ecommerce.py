@@ -139,7 +139,7 @@ conn, session, engine = connect()
 
 st.title("Stock Forecasting for Ecommerce Company 🛍️🛒📈")
 st.header('Historical trend of stock')
-st.sidebar.success()
+st.sidebar.success('Demand Forecasting')
 
 
 
