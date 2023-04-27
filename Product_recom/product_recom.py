@@ -127,11 +127,10 @@ def create_lookup_city_df():
 def check_user(user_id):
     data = pd.read_csv('https://raw.githubusercontent.com/ashwinkadam/DigitalMarketing-Algorithms-Project/main/Product_recom/Data_Prep/master_data.csv')
     if user_id in [data[data['user_id'] == 5]['user_id'].unique()[0]]:
-        flag = True
+        return True
     else:
-        falg = False
+        return False
      
-    return flag
 ##################################### MODEL 1 : USER_ITEM ###################################################
 
 
