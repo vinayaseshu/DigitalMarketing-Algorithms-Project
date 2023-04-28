@@ -1,5 +1,5 @@
 # EcommAI: Empowering Online Shopping with Intelligent Tools
-
+**Team** [Ashish N Mhatre](https://www.linkedin.com/in/ashishmhatre927/) & [Ashwin Kadam](https://www.linkedin.com/in/ashwinkadam07/)
 # Problem Statement and Solution
 
 Company ABC is struggling to manage their inventory stocks, predict future demand, and provide an enhanced customer journey on their website. With a small customer base, they need a solution that can provide insights to drive business decisions and improve customer satisfaction.
