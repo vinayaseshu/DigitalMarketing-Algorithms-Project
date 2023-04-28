@@ -139,7 +139,7 @@ conn, session, engine = connect()
 
 st.title("EcommAI: Demand Forecasting 🛍️🛒📈")
 st.header('Historical trend of stock')
-st.sidebar.success('Demand Forecasting')
+st.sidebar.success('EcommAI: Empowering Online Shopping with Intelligent Tools')
 
 
 
