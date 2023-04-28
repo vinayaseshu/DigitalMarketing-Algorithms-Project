@@ -11,3 +11,6 @@
 
 # Streamlit App
 [EcommAI - Streamlit App](https://ecommai.streamlit.app/)
+
+# Video Demonstration
+[EcommAI - Video](https://youtu.be/SUTK-MF-YaE)
