@@ -25,7 +25,12 @@ pip install -r requirements.txt
 To run the project, please follow these steps:
 
 1. Clone the project repository
-2. Run the 
+2. Run the Demand Forecasting notebook to (Setup snowflake environment, Transform and load data tables onto snowflake, Deploy Model, UDFs & Stored Proc)
+3. Run Product_Associate notebook to (Setup pinecone environment, Transform data and train model to upload vector embeddings onto pinecone index)
+4. Launch Ecommerce.py file using 
+```
+Streamlit run Ecommerce.py
+```
 
 
 # Project Report
