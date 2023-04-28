@@ -137,7 +137,7 @@ def plot_pred(dist, df):
 conn, session, engine = connect()
 
 
-st.title("Stock Forecasting for Ecommerce Company 🛍️🛒📈")
+st.title("EcommAI: Demand Forecasting 🛍️🛒📈")
 st.header('Historical trend of stock')
 st.sidebar.success('Demand Forecasting')
 
